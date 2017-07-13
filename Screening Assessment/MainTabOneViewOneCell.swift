@@ -82,6 +82,8 @@ class MainTabOneViewOneCell: BaseCell, UITextFieldDelegate, UIPickerViewDelegate
     func resetTextField(){
         nameInputTextField.text = ""
         codeInputTextField.text = ""
+        textBottomLineOne.backgroundColor = UIColor.lightGray
+        textBottomLineTwo.backgroundColor = UIColor.lightGray
         
         colorPickerView.selectRow(0, inComponent: 0, animated: false)
         colorPickerView.reloadAllComponents()
