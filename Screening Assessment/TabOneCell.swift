@@ -59,7 +59,8 @@ class TabOneCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
         info.code = MainTabOneViewOneCell.user.code
 
         users.append(info)
-        
+        let section = Section(name: info.name!, color: info.color!, code: info.code!, expanded: false)
+        sections.append(section)
         currentIndex = currentIndex + 1
         
         switchToNextView(index: currentIndex)

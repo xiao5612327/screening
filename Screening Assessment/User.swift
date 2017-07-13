@@ -12,10 +12,6 @@ class User: NSObject {
     var color: String?
     var code: String?
     var name: String?
+    var expanded: Bool?
     
-    override init() {
-        color = ""
-        code = ""
-        name = ""
-    }
 }

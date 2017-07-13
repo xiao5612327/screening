@@ -9,14 +9,16 @@
 
 import UIKit
 
+var sections = [Section]()
+
 class TabThreeCell: BaseCell, UITableViewDelegate, UITableViewDataSource, ExpandableHeaderViewDelegate{
     
-    var sections = [Section(genre: "bad",movies:["good", "bad"], expanded: false), Section(genre: "bad", movies:["good", "bad"], expanded: false), Section(genre: "bad", movies:["good", "bad"], expanded: false)]
-    
+//    var sections = [Section(name: "xiao", color: "red", code: "1232", expanded: false), Section(name: "ping", color: "black", code: "333", expanded: false)]
+//
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.backgroundColor = UIColor.yellow
+        tv.backgroundColor = UIColor.white
         tv.delegate = self
         tv.dataSource = self
         return tv
@@ -32,14 +34,24 @@ class TabThreeCell: BaseCell, UITableViewDelegate, UITableViewDataSource, Expand
         tableView.heightAnchor.constraint(equalTo: heightAnchor, constant: -70).isActive = true
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name("reloadTabThree"), object: nil)
     }
+    
+    func reloadData(){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].movies.count
+        return 1
     }
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
@@ -56,21 +68,30 @@ class TabThreeCell: BaseCell, UITableViewDelegate, UITableViewDataSource, Expand
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ExpandableHeaderView()
-        header.customInit(title: sections[section].genre, section: section, delegate: self)
+        header.customInit(title: sections[section].name, section: section, delegate: self)
         return header
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId")
-        cell?.textLabel?.text = sections[indexPath.section].movies[indexPath.row]
+        cell?.textLabel?.text = sections[indexPath.section].footer
+        cell?.textLabel?.textAlignment = .center
         return cell!
     }
     
     func toggleSection(header: ExpandableHeaderView, section: Int) {
-        sections[section].expanded = !sections[section].expanded
+        
+        for index in 0...sections.count-1 {
+            if index == section {
+                sections[section].expanded = !sections[section].expanded
+            }else{
+                sections[index].expanded = false
+            }
+        }
+        
         
         tableView.beginUpdates()
-        for i in 0 ..< sections[section].movies.count{
+        for i in 0 ..< 1{
             tableView.reloadRows(at: [IndexPath(row: i, section: section)], with: .automatic)
         }
         tableView.endUpdates()

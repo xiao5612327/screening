@@ -69,6 +69,7 @@ class MainTabBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         mainTabOneConroller?.switchToMainTabIndex(tabIndex: indexPath.item)
+        NotificationCenter.default.post(name: NSNotification.Name("reloadTabThree"), object: nil)
     }
     
 }
