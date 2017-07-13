@@ -44,7 +44,7 @@ class TabOneCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
     
     let bottomLine: UIView = {
         let line = UIView()
-        line.translatesAutoresizingMaskIntoConstraints = false
+        //line.translatesAutoresizingMaskIntoConstraints = false
         line.backgroundColor = UIColor(white: 0.6, alpha: 1)
         return line
     }()
@@ -52,7 +52,8 @@ class TabOneCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
     var currentIndex: Int = 0
     
     func handleSubmit(){
-        
+
+        endEditing(true)
         let info = User()
         info.name = MainTabOneViewOneCell.user.name
         info.color = MainTabOneViewOneCell.user.color
@@ -90,7 +91,7 @@ class TabOneCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     override func setupTabView() {
-        
+        tabOneCell = self
         addSubview(collectionMainView)
         addSubview(backButton)
         addSubview(submitButton)

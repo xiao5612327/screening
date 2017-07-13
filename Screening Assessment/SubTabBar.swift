@@ -30,7 +30,7 @@ class SubTabBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, U
         addSubview(collectionView)
         
         collectionView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         collectionView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
         

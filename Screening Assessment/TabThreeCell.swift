@@ -29,7 +29,7 @@ class TabThreeCell: BaseCell, UITableViewDelegate, UITableViewDataSource, Expand
         addSubview(tableView)
         
         tableView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
         tableView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         tableView.heightAnchor.constraint(equalTo: heightAnchor, constant: -70).isActive = true
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")

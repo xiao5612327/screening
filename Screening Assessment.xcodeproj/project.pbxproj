@@ -134,10 +134,10 @@
 			isa = PBXGroup;
 			children = (
 				234DEEAB1F14412E00B47236 /* MainTabBar.swift */,
-				238F217B1F15690A00958F30 /* TabTwoCell.swift */,
 				23AB134F1F1449AB0070D78F /* BaseCell.swift */,
 				238F217F1F156ACA00958F30 /* SubTabBar.swift */,
 				238F21831F15A66300958F30 /* TabOneCell.swift */,
+				238F217B1F15690A00958F30 /* TabTwoCell.swift */,
 				238F21851F15A69300958F30 /* TabThreeCell.swift */,
 				238F218F1F1684D500958F30 /* MainTabOneViewOneCell.swift */,
 				238F21931F1691BD00958F30 /* MainTabOneViewTwoCell.swift */,
@@ -207,6 +207,7 @@
 				TargetAttributes = {
 					234DEE861F1434B900B47236 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 98935H6K99;
 						ProvisioningStyle = Automatic;
 					};
 					234DEE9A1F1434B900B47236 = {
@@ -417,6 +418,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 98935H6K99;
 				INFOPLIST_FILE = "Screening Assessment/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "xiao.Screening-Assessment";
@@ -429,6 +431,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 98935H6K99;
 				INFOPLIST_FILE = "Screening Assessment/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "xiao.Screening-Assessment";

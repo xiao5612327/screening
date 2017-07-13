@@ -73,7 +73,7 @@ class TabTwoCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
  
     func setupTopSubBar(){
         
-        subTabBar.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        subTabBar.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
         subTabBar.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         subTabBar.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         subTabBar.heightAnchor.constraint(equalToConstant: 50).isActive = true

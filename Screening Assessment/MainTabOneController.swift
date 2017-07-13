@@ -8,10 +8,28 @@
 
 import UIKit
 
-class MainTabOneController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
+var tabOneCell: TabOneCell?
+
+struct AppUtility{
+    static func lockOrientation(_ orientation: UIInterfaceOrientationMask){
+        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+            delegate.orientationLock = orientation
+        }
+    }
     
+    static func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation: UIInterfaceOrientation){
+        self.lockOrientation(orientation)
+        UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
+    }
+}
+
+class MainTabOneController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate{
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        AppUtility.lockOrientation(.portrait)
         
         collectionView?.backgroundColor = UIColor.white
         
@@ -20,9 +38,24 @@ class MainTabOneController: UICollectionViewController, UICollectionViewDelegate
         setupTabsView()
         setupTabsBar()
         
-        self.viewWillDisappear(true)
+        
+        let backButton: UIBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handleBack))
+        self.navigationItem.leftBarButtonItem = backButton
     }
     
+    
+    func handleKeyboard(){
+        view.endEditing(true)
+    }
+    
+    func handleBack(){
+        tabOneCell?.handleBack()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
+    }
+
     let tabOneId = "tabOneId"
     let tabTwoId = "tabTwoId"
     let tabThreeId = "tabThreeId"
@@ -97,9 +130,15 @@ class MainTabOneController: UICollectionViewController, UICollectionViewDelegate
         mainTabBarLineSaprator.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         mainTabBarLineSaprator.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
-    
+    var indexRef: Int = 0
     func switchToMainTabIndex(tabIndex: Int){
-        
+        indexRef = tabIndex
+        if tabIndex != 0{
+            self.navigationItem.leftBarButtonItem = nil
+        }else{
+            let backButton: UIBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handleBack))
+            self.navigationItem.leftBarButtonItem = backButton
+        }
         let indexPath = IndexPath(item: tabIndex, section: 0)
         collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
         
@@ -109,6 +148,22 @@ class MainTabOneController: UICollectionViewController, UICollectionViewDelegate
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewDidDisappear(animated)
     }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        collectionView?.collectionViewLayout.invalidateLayout()
+        let indexPath = IndexPath(item: indexRef, section: 0)
+        
+        DispatchQueue.main.async {
+            self.collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            self.collectionView?.reloadData()
+        }
+    }
+    
 
 }
+
+
+
+
 

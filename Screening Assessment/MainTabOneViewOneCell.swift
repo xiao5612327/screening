@@ -45,10 +45,11 @@ class MainTabOneViewOneCell: BaseCell, UITextFieldDelegate, UIPickerViewDelegate
     }
     
     
-    let nameInputTextField: UITextField = {
+    lazy var nameInputTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter a Name"
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
         return textField
     }()
         
@@ -73,8 +74,10 @@ class MainTabOneViewOneCell: BaseCell, UITextFieldDelegate, UIPickerViewDelegate
         nameInputTextField.addTarget(self, action: #selector(handleNameEdited), for: .editingChanged)
         
         NotificationCenter.default.addObserver(self, selector: #selector(resetTextField), name: NSNotification.Name(rawValue: "resetTextField"), object: nil)
-        
+
     }
+    
+ 
     
     func resetTextField(){
         nameInputTextField.text = ""
@@ -89,8 +92,10 @@ class MainTabOneViewOneCell: BaseCell, UITextFieldDelegate, UIPickerViewDelegate
         MainTabOneViewOneCell.user.code = codeInputTextField.text
         if codeInputTextField.text?.characters.count == 4{
             let name = Notification.Name("codeGood")
+            textBottomLineOne.backgroundColor = UIColor.blue
             NotificationCenter.default.post(name: name, object: nil)
         }else{
+            textBottomLineOne.backgroundColor = UIColor.lightGray
             let name = Notification.Name("codeBad")
             NotificationCenter.default.post(name: name, object: nil)
         }
@@ -101,11 +106,11 @@ class MainTabOneViewOneCell: BaseCell, UITextFieldDelegate, UIPickerViewDelegate
         MainTabOneViewOneCell.user.name = nameInputTextField.text
         
         if nameInputTextField.text?.characters.count != 0 {
-            
+            textBottomLineTwo.backgroundColor = UIColor.blue
             let name = Notification.Name("nameGood")
             NotificationCenter.default.post(name: name, object: nil)
         }else{
-            
+            textBottomLineTwo.backgroundColor = UIColor.lightGray
             let name = Notification.Name("nameBad")
             NotificationCenter.default.post(name: name, object: nil)
         }
@@ -127,7 +132,7 @@ class MainTabOneViewOneCell: BaseCell, UITextFieldDelegate, UIPickerViewDelegate
     let blackCoverView = UIView()
     
     func handleSelectColor() {
-        
+        endEditing(true)
         if let window = UIApplication.shared.keyWindow{
             
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
@@ -222,6 +227,7 @@ class MainTabOneViewOneCell: BaseCell, UITextFieldDelegate, UIPickerViewDelegate
         let line = UIView()
         line.backgroundColor = UIColor.black
         line.translatesAutoresizingMaskIntoConstraints = false
+        line.backgroundColor = UIColor.lightGray
         return line
     }()
     
@@ -229,8 +235,14 @@ class MainTabOneViewOneCell: BaseCell, UITextFieldDelegate, UIPickerViewDelegate
         let line = UIView()
         line.backgroundColor = UIColor.black
         line.translatesAutoresizingMaskIntoConstraints = false
+        line.backgroundColor = UIColor.lightGray
         return line
     }()
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        endEditing(true)
+        return true
+    }
     
     func setupTapOneInputForms(){
         
